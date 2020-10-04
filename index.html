@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/index.js"></script>
+    <script src="js/Player.js"></script>
+    <script src="js/Game.js"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div id="login-div">
+            Spela quiz!
+            <span>Name:</span>
+            <input type="text" placeholder="Insert your name" id="nameInput">
+            <span>amount of questions:</span>
+            <select id="questionAmountSelect">
+                <option value=5>5</option>
+                <option value=6>6</option>
+                <option value=7>7</option>
+                <option value=8>8</option>8</option>
+                <option value=9>9</option>
+                <option value=10>10</option>
+            </select>
+            <button id="startBtn">Start game!</button>
+        </div>
+        <div id="quiz-div" class="hidden">
+            <div id=></div>
+            <div id="question-div">
+                <span id="question-span"></span>
+            </div>
+            <div id="answer-div"></div>
+            <div id="button-div">
+                <button id="correctBtn">Correct</button>
+                <button id="nextBtn" class="hidden">Next Question</button>
+                <button id="finishBtn" class="hidden">Finish</button>
+            </div>
+        </div>
+        <div id="end-div" class="hidden">
+            <div id="result-div">
+                <span id="name-span"></span>
+                <span>Game over, you scored: </span>
+                <span id="points-span"></span>
+            </div>
+            <button id="replayBtn">Play again!</button>
+        </div>
+    </div>
+</body>
+</html>
