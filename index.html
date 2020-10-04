@@ -11,8 +11,8 @@
 </head>
 <body>
     <div class="container">
-        <div id="login-div">
-            Spela quiz!
+        <div id="home-div">
+            <header>Quiz</header>
             <span>Name:</span>
             <input type="text" placeholder="Insert your name" id="nameInput">
             <span>amount of questions:</span>
@@ -27,15 +27,17 @@
             <button id="startBtn">Start game!</button>
         </div>
         <div id="quiz-div" class="hidden">
-            <div id=></div>
-            <div id="question-div">
-                <span id="question-span"></span>
+            <div id="question-counter"></div>
+            <div id="questions-main">
+                <!-- apiQuestions Here -->
             </div>
-            <div id="answer-div"></div>
-            <div id="button-div">
-                <button id="correctBtn">Correct</button>
-                <button id="nextBtn" class="hidden">Next Question</button>
-                <button id="finishBtn" class="hidden">Finish</button>
+            <div id="buttons">
+                <div id="main-buttons">
+                    <button id="previousBtn" class="hidden">Previous Question</button>
+                    <button id="correctBtn">Correct</button>
+                    <button id="nextBtn">Next Question</button>
+                </div>
+                <button id="submitBtn">Submit Answers</button>
             </div>
         </div>
         <div id="end-div" class="hidden">
@@ -45,7 +47,9 @@
                 <span id="points-span"></span>
             </div>
             <button id="replayBtn">Play again!</button>
+            <button id="homeBtn">Home page</button>
         </div>
+        <span id="errorMessage"></span>
     </div>
 </body>
 </html>

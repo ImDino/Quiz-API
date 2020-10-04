@@ -7,16 +7,16 @@ class Game {
 
     async startReset() {
         this.currentQuestionNo = 0;
+        //let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
+        try{
+            let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
+            this.apiData = await response.json()
+        }
+        catch {
+            console.log(response.error)
+        }
         
-        let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
-        this.apiData = await response.json()
-        
-        this.nextQuestion();
-    }
-
-    nextQuestion() {
-        this.showQuestion(this.apiData[this.currentQuestionNo].question)
-        this.showAnswers(this.trimNullAndFalse(this.apiData[this.currentQuestionNo].answers))
+        this.appendData();
     }
 
     trimNullAndFalse(object) {
@@ -27,29 +27,44 @@ class Game {
         return object
     }
 
-    showQuestion(question) {
-        let questionSpan = document.getElementById('question-span')
-        questionSpan.innerHTML = "";
-        questionSpan.append(question)
-    }
+    appendData() {
+        let mainQuestionsDiv = document.getElementById('questions-main')
+        mainQuestionsDiv.innerHTML =""
+        console.log(this.apiData)
 
-    showAnswers(answers) {
-        let answerDiv = document.getElementById('answer-div')
-        while (answerDiv.firstChild) {
-            answerDiv.removeChild(answerDiv.lastChild);
-        }
+        Object.entries(this.apiData).forEach(([key], index) => {
+            let newDiv = document.createElement('div')
+            newDiv.id = "question"+(index+1)
+            newDiv.classList.add('hidden')
+            
+            let questionSpan = document.createElement('span')
+            questionSpan.innerHTML = this.apiData[index].question
+            questionSpan.classList.add('question')
+            
+            newDiv.appendChild(questionSpan)
+            
+            let answers = this.trimNullAndFalse(this.apiData[index].answers)
+            let answerDiv = document.createElement('div')
+            answerDiv.id = "answer-div"
 
-        for (let answer in answers) {
-            let newSpan = document.createElement('span')
-            let newCheckBox = document.createElement('input')
-            newCheckBox.type = 'checkbox'
-            newCheckBox.id = answer
-            newSpan.id = answer
+            for (let answer in answers) {
+                let answerSpan = document.createElement('span')
+                answerSpan.textContent = answers[answer]
+                answerSpan.classList.add('answer')
+                answerSpan.id = answer
 
-            newSpan.textContent = answers[answer]
-            answerDiv.appendChild(newSpan)
-            answerDiv.appendChild(newCheckBox)
-        }
+                let checkBox = document.createElement('input')
+                checkBox.type = 'checkbox'
+                checkBox.id = answer
+
+                answerDiv.appendChild(answerSpan)
+                answerDiv.appendChild(checkBox)
+            }
+            
+            newDiv.appendChild(answerDiv)
+            mainQuestionsDiv.appendChild(newDiv)
+        })
+        document.getElementById('question1').classList.remove('hidden')
     }
 
     correct(userAnswer, correctAnswers) {
@@ -60,24 +75,24 @@ class Game {
         }
         
         if (userAnswer.toString() == correctAnswersArray.toString()) {
-            console.log("Correct!")
-            
+            return true
         } else {
-            console.log("incorrect!")
+            return false
         }
     }
     
     displayCorrect(userAnswer, correctAnswers) {
         let correctAnswersFormatted = [];
+        let parent = document.getElementById('question'+(this.currentQuestionNo+1))
         
         Object.entries(correctAnswers).forEach(([key], index) => {
             correctAnswersFormatted.push(key.replace("_correct", ""))
-            document.getElementById(correctAnswersFormatted[index]).classList.add('correct')
+            parent.querySelector('#'+[correctAnswersFormatted[index]]).classList.add('correct')
         })
 
         userAnswer.forEach((element) => {
             if (!correctAnswersFormatted.includes(element)) {
-                document.getElementById(element).classList.add('incorrect')
+                parent.querySelector('#'+[element]).classList.add('incorrect')
             }
         })
     }
