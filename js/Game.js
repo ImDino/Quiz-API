@@ -14,7 +14,7 @@ class Game {
             this.appendData();
         }
         catch (error) {
-            document.getElementById('errorMessage').innerHTML = "Ett fel har skett, testa ladda om sidan!"
+            document.getElementById('errorMessage').innerHTML = "An error has occured, try reloading the page!"
         }
     }
 
@@ -29,7 +29,6 @@ class Game {
     appendData() {
         let mainQuestionsDiv = document.getElementById('questions-main')
         mainQuestionsDiv.innerHTML =""
-        console.log(this.apiData)
 
         Object.entries(this.apiData).forEach(([key], index) => {
             let newDiv = document.createElement('div')
@@ -83,7 +82,6 @@ class Game {
     
     displayCorrect(userAnswer, correctAnswers, questionNo) {
         let correctAnswersFormatted = [];
-        console.log(questionNo)
         let parent = document.getElementById('question'+(questionNo))
         
         Object.entries(correctAnswers).forEach(([key], index) => {
