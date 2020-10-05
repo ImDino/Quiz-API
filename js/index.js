@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         player.name = document.getElementById('nameInput').value
         player.points = 0;
         await game.startReset()
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionNo+1)+" of "+game.numOfQuestions
+        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
         document.getElementById('quiz-div').classList.remove('hidden')
         document.getElementById('home-div').classList.add('hidden')
         submitBtn.classList.remove('hidden')
@@ -25,27 +25,27 @@ document.addEventListener('DOMContentLoaded', function(e) {
     previousBtn.addEventListener('click', function(){
         nextBtn.classList.remove('hidden')
         
-        document.getElementById('question'+(game.currentQuestionNo+1)).classList.add('hidden')
-        game.currentQuestionNo--;
-        document.getElementById('question'+(game.currentQuestionNo+1)).classList.remove('hidden')
+        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.add('hidden')
+        game.currentQuestionIndex--;
+        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.remove('hidden')
 
-        if(game.currentQuestionNo == 0) {
+        if(game.currentQuestionIndex == 0) {
             previousBtn.classList.add('hidden')
         }
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionNo+1)+" of "+game.numOfQuestions
+        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
     })
 
     nextBtn.addEventListener('click', function(){
         previousBtn.classList.remove('hidden')
         
-        document.getElementById('question'+(game.currentQuestionNo+1)).classList.add('hidden')
-        game.currentQuestionNo++;
-        document.getElementById('question'+(game.currentQuestionNo+1)).classList.remove('hidden')
+        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.add('hidden')
+        game.currentQuestionIndex++;
+        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.remove('hidden')
 
-        if(game.currentQuestionNo == game.numOfQuestions-1) {
+        if(game.currentQuestionIndex == game.numOfQuestions-1) {
             nextBtn.classList.add('hidden')
         }
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionNo+1)+" of "+game.numOfQuestions
+        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
     })
     
     submitBtn.addEventListener('click', function(){
@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function(e) {
                 answer.disabled = true
             }
             let correctAnswers = game.trimNullAndFalse(game.apiData[i].correct_answers)
-            let correctAnswer = game.correct(chosenAnswers, correctAnswers)
-            if (correctAnswer) player.points++
+            let isCorrectAnswer = game.correct(chosenAnswers, correctAnswers)
+            if (isCorrectAnswer) player.points++
             game.displayCorrect(chosenAnswers, correctAnswers, i+1)
         }
         submitBtn.classList.add('hidden')
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
         previousBtn.classList.add('hidden')
         document.getElementById('quiz-div').classList.remove('hidden')
         document.getElementById('end-div').classList.add('hidden')
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionNo+1)+" of "+game.numOfQuestions
+        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
     })
 
     homeBtn.addEventListener('click', function(){
@@ -91,8 +91,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 
 /* //!Notes
-
-? behöver man göra if-sats för "ok: true"?
 *Lämna in projektet som ett git-repo.
-!om man inte correctat så måste allt correctas innan submission går igenom!
+kolla så alla variabler make sense.. t ex newDiv kan heta outerDiv
 */

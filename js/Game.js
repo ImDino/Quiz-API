@@ -2,12 +2,11 @@ class Game {
     constructor () {
         this.numOfQuestions = 0;
         this.apiData = 0;
-        this.currentQuestionNo = 0;
+        this.currentQuestionIndex = 0;
     }
 
     async startReset() {
-        this.currentQuestionNo = 0;
-        //let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
+        this.currentQuestionIndex = 0;
         try{
             let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
             this.apiData = await response.json()
@@ -21,7 +20,7 @@ class Game {
     trimNullAndFalse(object) {
         for(let property in object) {
             if (object[property] == null) delete object[property]
-            if (object[property] == "false") delete object[property]
+            else if (object[property] == "false") delete object[property]
         }
         return object
     }
@@ -30,16 +29,16 @@ class Game {
         let mainQuestionsDiv = document.getElementById('questions-main')
         mainQuestionsDiv.innerHTML =""
 
-        Object.entries(this.apiData).forEach(([key], index) => {
-            let newDiv = document.createElement('div')
-            newDiv.id = "question"+(index+1)
-            newDiv.classList.add('hidden')
+        Object.entries(this.apiData).forEach(([], index) => {
+            let outerDiv = document.createElement('div')
+            outerDiv.id = "question"+(index+1)
+            outerDiv.classList.add('hidden')
             
             let questionSpan = document.createElement('span')
             questionSpan.innerHTML = this.apiData[index].question
             questionSpan.classList.add('question')
             
-            newDiv.appendChild(questionSpan)
+            outerDiv.appendChild(questionSpan)
             
             let answers = this.trimNullAndFalse(this.apiData[index].answers)
             let answersDiv = document.createElement('div')
@@ -61,19 +60,17 @@ class Game {
                 answersDiv.appendChild(answerDiv)
             }
             
-            newDiv.appendChild(answersDiv)
-            mainQuestionsDiv.appendChild(newDiv)
+            outerDiv.appendChild(answersDiv)
+            mainQuestionsDiv.appendChild(outerDiv)
         })
         document.getElementById('question1').classList.remove('hidden')
     }
 
     correct(userAnswer, correctAnswers) {
-        let correctAnswersArray = []
-        
-        for(let answer in correctAnswers) {
-            correctAnswersArray.push(answer.replace("_correct", ""))
-        }
-        
+        let correctAnswersArray = Object.keys(correctAnswers).map(function (item) {
+            return item.replace("_correct", "");
+        });
+
         if (userAnswer.toString() == correctAnswersArray.toString()) {
             return true
         }
