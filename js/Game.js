@@ -44,14 +44,15 @@ class Game {
             newDiv.appendChild(questionSpan)
             
             let answers = this.trimNullAndFalse(this.apiData[index].answers)
-            let answerDiv = document.createElement('div')
-            answerDiv.id = "answer-div"
+            let answersDiv = document.createElement('div')
+            answersDiv.id = "answers-div"
 
             for (let answer in answers) {
+                let answerDiv = document.createElement('div')
                 let answerSpan = document.createElement('span')
+                answerDiv.classList.add('answer')
+                answerDiv.id = answer
                 answerSpan.textContent = answers[answer]
-                answerSpan.classList.add('answer')
-                answerSpan.id = answer
 
                 let checkBox = document.createElement('input')
                 checkBox.type = 'checkbox'
@@ -59,9 +60,10 @@ class Game {
 
                 answerDiv.appendChild(answerSpan)
                 answerDiv.appendChild(checkBox)
+                answersDiv.appendChild(answerDiv)
             }
             
-            newDiv.appendChild(answerDiv)
+            newDiv.appendChild(answersDiv)
             mainQuestionsDiv.appendChild(newDiv)
         })
         document.getElementById('question1').classList.remove('hidden')
@@ -76,14 +78,14 @@ class Game {
         
         if (userAnswer.toString() == correctAnswersArray.toString()) {
             return true
-        } else {
-            return false
         }
+        return false
     }
     
-    displayCorrect(userAnswer, correctAnswers) {
+    displayCorrect(userAnswer, correctAnswers, questionNo) {
         let correctAnswersFormatted = [];
-        let parent = document.getElementById('question'+(this.currentQuestionNo+1))
+        console.log(questionNo)
+        let parent = document.getElementById('question'+(questionNo))
         
         Object.entries(correctAnswers).forEach(([key], index) => {
             correctAnswersFormatted.push(key.replace("_correct", ""))
@@ -95,5 +97,6 @@ class Game {
                 parent.querySelector('#'+[element]).classList.add('incorrect')
             }
         })
+        parent.classList.remove('hidden')
     }
 }

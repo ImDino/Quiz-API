@@ -1,35 +1,57 @@
 body {
-    /* background-color: black; */
+    background-color: rgb(226, 226, 226);
     /* color: wheat; */
     font-size: 1.2em;
+
+
 }
 
-#answer-div {
+html {
+    /* background: linear-gradient(180deg, #80FF94 0%, rgba(255, 255, 255, 0) 100%), #254B77;
+    background-attachment:fixed;
+    height:100%; */
+}
+
+.answer {
+    position: relative;
+    width: 100%;
+    margin: 5px;
+    width: 95%;
+    line-height: 20px;
+    padding: 10px;
+    
+    border-radius: 15px;
+    box-shadow: 0 0 0 2pt black;
+    outline-offset: -1px;
+    outline-offset: 4px;
+    border: none;
+    
+	font: inherit;      
+	outline: inherit;
+}
+.answer input {
+    position: absolute;
+    right: 9px;
+    bottom: 9px;
+}
+
+#answers-div {
+    /* border: 3px solid black; */
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 400px;
     padding: 10px;
-    background-color: rgb(216, 216, 216);
+    /* background: #9affdc42; */
+    
 }
 
-#answer-div span {
-    margin: 5px;
-    width: 90%;
-    line-height: 20px;
-    padding: 5px;
-    
-    border-radius: 10px;
-    box-shadow: 0 0 0 2pt black;
-    outline-offset: -1px;
-    outline-offset: 4px;
-
-    /* background: none; */
-	/* color: inherit; */
-    border: none;
-    
-	font: inherit;      
-	outline: inherit;
+#submitBtn {
+    width: 350px;
+    height: 30px;
+    border-radius: 15px;
+    /* background-color: rgb(137, 241, 245); */
 }
 
 .correct {
