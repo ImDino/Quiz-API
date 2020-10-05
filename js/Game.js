@@ -11,12 +11,11 @@ class Game {
         try{
             let response = await fetch('https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions)
             this.apiData = await response.json()
+            this.appendData();
         }
-        catch {
-            console.log(response.error)
+        catch (error) {
+            document.getElementById('errorMessage').innerHTML = "Ett fel har skett, testa ladda om sidan!"
         }
-        
-        this.appendData();
     }
 
     trimNullAndFalse(object) {
