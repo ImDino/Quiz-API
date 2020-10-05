@@ -89,31 +89,6 @@ document.addEventListener('DOMContentLoaded', function(e) {
     })
 })
 
-/*
-
-    correctBtn.addEventListener('click', function(){
-        console.log('question'+(game.currentQuestionNo+1))
-        let checkBoxes = document.getElementById('question'+(game.currentQuestionNo+1)).getElementsByTagName('input')
-        console.log(checkBoxes)
-        let chosenAnswers = []
-        
-        for (let answer of checkBoxes) {
-            if (answer.checked) {
-                chosenAnswers.push(answer.id)
-            }
-            answer.disabled = true
-        }
-        let correctAnswers = game.trimNullAndFalse(game.apiData[game.currentQuestionNo].correct_answers)
-
-        let correctAnswer = game.correct(chosenAnswers, correctAnswers)
-        if (correctAnswer) player.points++
-
-        document.getElementById('question'+(game.currentQuestionNo+1)).setAttribute('corrected', "")
-        correctBtn.disabled = true;
-        game.displayCorrect(chosenAnswers, correctAnswers)
-    })
-*/
-
 
 /* //!Notes
 
