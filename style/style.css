@@ -1,17 +1,10 @@
 body {
-    /* background-color: rgb(226, 226, 226); */
     background-color: #12171E;
     color: rgb(255, 255, 255);
     font-size: 1.2em;
     display: flex;
     justify-content: center;
     font-family: 'Carrois Gothic SC', sans-serif;
-}
-
-html {
-    /* background: linear-gradient(180deg, #80FF94 0%, rgba(255, 255, 255, 0) 100%), #254B77;
-    background-attachment:fixed;
-    height:100%; */
 }
 
 .container {
@@ -52,12 +45,10 @@ html {
 
 #answers-div {
     color: black;
-    /* border: 3px solid black; */
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 400px; */
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -73,8 +64,6 @@ button {
 #nextBtn {
     float: right;
 }
-
-
 
 #submitBtn {
     width: 350px;
@@ -92,17 +81,9 @@ button {
     display: none !important;
 }
 
-/* Fonts
-Almarai
-
-
-*/
-
 input[type=checkbox] {
     width: 1.3em;
     height: 1.3em;
-    /* background-color: white; */
-    /* border: 1px solid #ddd; */
     background-color: inherit;
     border: 2px solid black;
     border-radius: 50%;
@@ -114,7 +95,6 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:checked {
-    /* background-color: gray; */
     background-color: #12171E;
 }
 
