@@ -6,12 +6,6 @@ body {
     justify-content: center;
 }
 
-html {
-    /* background: linear-gradient(180deg, #80FF94 0%, rgba(255, 255, 255, 0) 100%), #254B77;
-    background-attachment:fixed;
-    height:100%; */
-}
-
 .container {
     width: 400px;
     margin: none;
