@@ -29,6 +29,8 @@ class Game {
         let mainQuestionsDiv = document.getElementById('questions-main')
         mainQuestionsDiv.innerHTML =""
 
+        // lägga till key inom square brackets (behövs ens square brackets?) -
+        // - och ändra de 2 "this.apiData[index]" till key?
         Object.entries(this.apiData).forEach(([], index) => {
             let outerDiv = document.createElement('div')
             outerDiv.id = "question"+(index+1)

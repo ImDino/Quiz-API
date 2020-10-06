@@ -1,9 +1,11 @@
 body {
-    background-color: rgb(226, 226, 226);
-    /* color: wheat; */
+    /* background-color: rgb(226, 226, 226); */
+    background-color: #12171E;
+    color: rgb(255, 255, 255);
     font-size: 1.2em;
     display: flex;
     justify-content: center;
+    font-family: 'Carrois Gothic SC', sans-serif;
 }
 
 html {
@@ -22,11 +24,14 @@ html {
     width: 100%;
 }
 
+.question {
+    font-size: 1.4em;
+}
+
 .answer {
     position: relative;
-    width: 100%;
     margin: 5px;
-    width: 95%;
+    width: 92.4%;
     line-height: 20px;
     padding: 10px;
     
@@ -46,16 +51,18 @@ html {
 }
 
 #answers-div {
+    color: black;
     /* border: 3px solid black; */
-    border-radius: 15px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    /* width: 400px; */
+    width: 100%;
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 20px;
-    /* background: #9affdc42; */
+    background: #6CE3EB;
 }
 
 button {
@@ -74,11 +81,11 @@ button {
 }
 
 .correct {
-    background-color: greenyellow !important;
+    background-color: rgb(142, 255, 36) !important;
 }
 
 .incorrect {
-    background-color: rgb(255, 71, 47) !important;
+    background-color: #FF3C3C !important;
 }
 
 .hidden {
@@ -94,10 +101,12 @@ Almarai
 input[type=checkbox] {
     width: 1.3em;
     height: 1.3em;
-    background-color: white;
+    /* background-color: white; */
+    /* border: 1px solid #ddd; */
+    background-color: inherit;
+    border: 2px solid black;
     border-radius: 50%;
     vertical-align: middle;
-    border: 1px solid #ddd;
     -webkit-appearance: none;
     outline: none;
     cursor: pointer;
@@ -105,7 +114,8 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:checked {
-    background-color: gray;
+    /* background-color: gray; */
+    background-color: #12171E;
 }
 
 #result-div {
