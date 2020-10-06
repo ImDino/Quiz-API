@@ -14,41 +14,50 @@
     <div class="container">
         <div id="home-div">
             <header>Quiz</header>
-            <span>Name:</span>
-            <input type="text" placeholder="Insert your name" id="nameInput">
-            <span>amount of questions:</span>
-            <select id="questionAmountSelect">
-                <option value=5>5</option>
-                <option value=6>6</option>
-                <option value=7>7</option>
-                <option value=8>8</option>8</option>
-                <option value=9>9</option>
-                <option value=10>10</option>
-            </select>
+            <div>
+                <span>Name:</span>
+                <input type="text" placeholder="Insert your name" id="nameInput">
+            </div>
+            <div>
+                <span>amount of questions:</span>
+                <select id="questionAmountSelect">
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                </select>
+            </div>
             <button id="startBtn">Start game!</button>
         </div>
         <div id="end-div" class="hidden">
             <div id="result-div">
+                <span>Game over, </span>
                 <span id="name-span"></span>
-                <span>Game over, you scored: </span>
+                <span>. You scored: </span>
                 <span id="points-span"></span>
             </div>
             <button id="replayBtn">Play again!</button>
             <button id="homeBtn">Home page</button>
         </div>
+        
         <div id="quiz-div" class="hidden">
-            <div id="question-counter"></div>
-            <div id="questions-main">
-                <!-- apiQuestions Here -->
+            <div class="arrow-space">
+                <img src="img/left-arrow.png" id="previousBtn">
             </div>
-            <div id="buttons">
-                <div id="main-buttons">
-                    <button id="previousBtn" class="hidden">Previous Question</button>
-                    <!-- <button id="correctBtn">Correct</button> -->
-                    <button id="nextBtn">Next Question</button>
+            <div>
+                <div id="question-counter"></div>
+                <div id="questions-main">
+                    <!-- apiQuestions Here -->
                 </div>
-                <button id="submitBtn" class="hidden">Submit Answers</button>
             </div>
+            <div class="arrow-space">
+                <img src="img/left-arrow.png" id="nextBtn">
+            </div>
+        </div>
+        <div id="buttons">
+            <button id="submitBtn" class="hidden">Submit Answers</button>
         </div>
         <span id="errorMessage"></span>
     </div>

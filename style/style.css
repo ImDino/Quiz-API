@@ -8,21 +8,31 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 550px;
     margin: none;
+}
+
+#home-div {
+    display: flex;
+    justify-content: center;
+}
+
+#home-div header {
+    width: 100%;
 }
 
 #questions-main {
     margin-top: 20px;
-    width: 100%;
+    /* width: 100%; */
+    width: 400px;
 }
 
 .question {
-    font-size: 1.4em;
+    font-size: 1.35em;
 }
 
 .answer {
-    position: relative;
+    /* position: relative; */
     margin: 5px;
     width: 92.4%;
     line-height: 20px;
@@ -38,9 +48,10 @@ body {
 	outline: inherit;
 }
 .answer input {
-    position: absolute;
-    right: 9px;
-    bottom: 9px;
+    /* position: absolute; */
+    /* right: 9px; */
+    /* bottom: 9px; */
+    float: right;
 }
 
 #answers-div {
@@ -51,23 +62,114 @@ body {
     align-items: center;
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
     background: #6CE3EB;
 }
 
-button {
-    height: 30px;
-    border-radius: 15px;
+
+#quiz-div {
+    display: flex;
+}
+
+#end-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 30px 0px 30px;
+    font-size: 1.5em;
+    flex-wrap: wrap;
+}
+
+#result-div {
+    margin: 10px 0px 30px;
+    width: 100%;
+    text-align: center;
+}
+
+#question-counter {
+    margin-top: 10px;
+}
+
+/*###################
+#      BUTTONS      #
+###################*/
+
+.arrow-space {
+    width: 100px;
+    position: relative;
+}
+
+.arrow-space img {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 200px;
+}
+
+.arrow-space img:hover {
+    cursor: pointer;
+}
+
+#previousBtn {
+    left: -26px;
 }
 
 #nextBtn {
-    float: right;
+    /* float: right; */
+    left: 20px;
+    transform: rotate(180deg);
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
 }
 
 #submitBtn {
     width: 350px;
 }
+
+#replayBtn, #homeBtn  {
+    width: 300px;
+    margin: 5px;
+}
+
+button {
+    height: 40px;
+    background-color: rgb(0, 255, 136);
+    border-radius: 15px;
+    font-family: 'Carrois Gothic SC', sans-serif;
+    font-size: 0.8em;
+    /* font-weight: bold; */
+}
+
+/*###################
+#     CHECKBOXES    #
+###################*/
+
+input[type=checkbox] {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: inherit;
+    border: 2px solid black;
+    border-radius: 50%;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    content: '\2714'; 
+    
+}
+
+input[type=checkbox]:checked {
+    background-color: #12171E;
+}
+
+
+/*###################
+#       OTHER       #
+###################*/
 
 .correct {
     background-color: rgb(142, 255, 36) !important;
@@ -81,23 +183,10 @@ button {
     display: none !important;
 }
 
-input[type=checkbox] {
-    width: 1.3em;
-    height: 1.3em;
-    background-color: inherit;
-    border: 2px solid black;
-    border-radius: 50%;
-    vertical-align: middle;
-    -webkit-appearance: none;
-    outline: none;
-    cursor: pointer;
-    content: '\2714'; 
-}
-
-input[type=checkbox]:checked {
-    background-color: #12171E;
-}
-
-#result-div {
-    margin: 20px;
-}
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    }
