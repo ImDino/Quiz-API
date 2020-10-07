@@ -85,14 +85,17 @@ document.addEventListener('DOMContentLoaded', function(e) {
     document.getElementById('questions-main').addEventListener('click', function(e){
         if (e.target.tagName == 'SPAN') {
             let checkbox = e.target.nextSibling
-            if (!checkbox.checked) checkbox.checked = true
-            else checkbox.checked = false
+            if (!checkbox.disabled) {
+                if (!checkbox.checked) checkbox.checked = true
+                else checkbox.checked = false
+            }
         }
-
         if (e.target.classList == 'answer') {
             let checkbox = e.target.querySelector('input')
-            if (!checkbox.checked) checkbox.checked = true
-            else checkbox.checked = false
+            if (!checkbox.disabled) {
+                if (!checkbox.checked) checkbox.checked = true
+                else checkbox.checked = false
+            }
         }
     })
 
