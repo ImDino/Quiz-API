@@ -9,43 +9,44 @@ document.addEventListener('DOMContentLoaded', function(e) {
     let replayBtn = document.getElementById('replayBtn')
     let homeBtn = document.getElementById('homeBtn')
     
+    let end_div = document.getElementById('end-div')
+    let quiz_div = document.getElementById('quiz-div')
+    let home_div = document.getElementById('home-div')
+
     startBtn.addEventListener('click', async function(){
         game.numOfQuestions = document.getElementById('questionAmountSelect').value;
         player.name = document.getElementById('nameInput').value
-        player.points = 0;
+        //player.points = 0;
         await game.startReset()
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
-        document.getElementById('quiz-div').classList.remove('hidden')
-        document.getElementById('home-div').classList.add('hidden')
-        submitBtn.classList.remove('hidden')
-        nextBtn.classList.remove('hidden')
-        previousBtn.classList.add('hidden')
+        updateNavDisplay()
+        unhideElements([quiz_div, submitBtn, nextBtn])
+        hideElements([previousBtn, home_div])
     })
 
     previousBtn.addEventListener('click', function(){
-        nextBtn.classList.remove('hidden')
-        
-        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.add('hidden')
+        unhideElements([nextBtn])
+
+        hideElements([currentQuestion_div()])
         game.currentQuestionIndex--;
-        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.remove('hidden')
+        unhideElements([currentQuestion_div()])
 
         if(game.currentQuestionIndex == 0) {
-            previousBtn.classList.add('hidden')
+            hideElements([previousBtn])
         }
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
+        updateNavDisplay()
     })
 
     nextBtn.addEventListener('click', function(){
-        previousBtn.classList.remove('hidden')
-        
-        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.add('hidden')
+        unhideElements([previousBtn])
+
+        hideElements([currentQuestion_div()])
         game.currentQuestionIndex++;
-        document.getElementById('question'+(game.currentQuestionIndex+1)).classList.remove('hidden')
+        unhideElements([currentQuestion_div()])
 
         if(game.currentQuestionIndex == game.numOfQuestions-1) {
-            nextBtn.classList.add('hidden')
+            hideElements([nextBtn])
         }
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
+        updateNavDisplay()
     })
     
     submitBtn.addEventListener('click', function(){
@@ -63,30 +64,54 @@ document.addEventListener('DOMContentLoaded', function(e) {
             if (isCorrectAnswer) player.points++
             game.displayCorrect(chosenAnswers, correctAnswers, i+1)
         }
-        submitBtn.classList.add('hidden')
-        nextBtn.classList.add('hidden')
-        previousBtn.classList.add('hidden')
+        hideElements([submitBtn, nextBtn, previousBtn])
         document.getElementById('question-counter').innerHTML = ""
         document.getElementById('name-span').innerHTML = player.name
         document.getElementById('points-span').innerHTML = player.points
-        document.getElementById('end-div').classList.remove('hidden')
+        unhideElements([end_div])
     })
 
     replayBtn.addEventListener('click', async function() {
         await game.startReset()
-        submitBtn.classList.remove('hidden')
-        nextBtn.classList.remove('hidden')
-        previousBtn.classList.add('hidden')
-        document.getElementById('quiz-div').classList.remove('hidden')
-        document.getElementById('end-div').classList.add('hidden')
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
+        unhideElements([quiz_div, submitBtn])
+        hideElements([end_div, previousBtn, nextBtn])
     })
 
     homeBtn.addEventListener('click', function(){
-        document.getElementById('end-div').classList.add('hidden')
-        document.getElementById('quiz-div').classList.add('hidden')
-        document.getElementById('home-div').classList.remove('hidden')
+        hideElements([quiz_div, end_div])
+        unhideElements([home_div])
     })
+
+    document.getElementById('questions-main').addEventListener('click', function(e){
+        if (e.target.tagName == 'SPAN') {
+            let checkbox = e.target.nextSibling
+            if (!checkbox.checked) checkbox.checked = true
+            else checkbox.checked = false
+        }
+
+        if (e.target.classList == 'answer') {
+            let checkbox = e.target.querySelector('input')
+            if (!checkbox.checked) checkbox.checked = true
+            else checkbox.checked = false
+        }
+    })
+
+    function hideElements(arrayInput) {
+        for (let element of arrayInput) {
+            element.classList.add('hidden')
+        }
+    }
+    function unhideElements(arrayInput) {
+        for (let element of arrayInput) {
+            element.classList.remove('hidden')
+        }
+    }
+    function currentQuestion_div() {
+        return document.getElementById('question'+(game.currentQuestionIndex+1))
+    }
+    function updateNavDisplay() {
+        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
+    }
 })
 
 
