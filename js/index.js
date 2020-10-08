@@ -1,124 +1,162 @@
 
-document.addEventListener('DOMContentLoaded', function(e) {
-    let game = new Game()
-    let player = new Player()
-    let startBtn = document.getElementById('startBtn')
-    let previousBtn = document.getElementById('previousBtn')
-    let nextBtn = document.getElementById('nextBtn')
-    let submitBtn = document.getElementById('submitBtn')
-    let replayBtn = document.getElementById('replayBtn')
-    let homeBtn = document.getElementById('homeBtn')
-    
-    let end_div = document.getElementById('end-div')
-    let quiz_div = document.getElementById('quiz-div')
-    let home_div = document.getElementById('home-div')
+class Game {
+    constructor () {
+        this.api
+        this.interface = new Interface()
+        this.player
+    }
+    async startReset() {
+        let numOfQuestions = document.getElementById('questionAmountSelect').value
+        let playerName = document.getElementById('nameInput').value
 
-    startBtn.addEventListener('click', async function(){
-        game.numOfQuestions = document.getElementById('questionAmountSelect').value;
-        player.name = document.getElementById('nameInput').value
-        //player.points = 0;
-        await game.startReset()
-        updateNavDisplay()
-        unhideElements([quiz_div, submitBtn, nextBtn])
-        hideElements([previousBtn, home_div])
-    })
-
-    previousBtn.addEventListener('click', function(){
-        unhideElements([nextBtn])
-
-        hideElements([currentQuestion_div()])
-        game.currentQuestionIndex--;
-        unhideElements([currentQuestion_div()])
-
-        if(game.currentQuestionIndex == 0) {
-            hideElements([previousBtn])
+        this.api = new API(numOfQuestions)
+        await this.api.apiData
+        this.interface.appendData(this.apiData.api)
+        this.player = new Player(playerName)
+    }
+}
+class API{
+    constructor(numOfQuestions) {
+        this.apiData = this.fetch(numOfQuestions)
+    }
+    async fetch(numOfQuestions) {
+        let url = 'https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+numOfQuestions
+        try {
+            let data = await fetch(url)
+            .then(resp => resp.json())
+            .then(data => this.apiData = this.trimData(data))
         }
-        updateNavDisplay()
-    })
-
-    nextBtn.addEventListener('click', function(){
-        unhideElements([previousBtn])
-
-        hideElements([currentQuestion_div()])
-        game.currentQuestionIndex++;
-        unhideElements([currentQuestion_div()])
-
-        if(game.currentQuestionIndex == game.numOfQuestions-1) {
-            hideElements([nextBtn])
+        catch (error) {
+            console.log("något gick snett")
         }
-        updateNavDisplay()
-    })
-    
-    submitBtn.addEventListener('click', function(){
-        for (i=0 ; i<game.numOfQuestions ; i++) {
-            let chosenAnswers = []
-            let checkBoxes = document.getElementById('question'+(i+1)).getElementsByTagName('input')
-            for (let answer of checkBoxes) {
-                if (answer.checked) {
-                    chosenAnswers.push(answer.id)
+    }
+    trimData(input) {
+        let wantedProperties = ['question', 'answers', 'correct_answers']
+
+        for (let questionObject of input) {
+            for(let category in questionObject) {
+                if (!wantedProperties.includes(category)) delete questionObject[category]
+                else {
+                    if (category != 'question')
+                    for (let property in questionObject[category]) {
+                        if (questionObject[category][property] == null) delete questionObject[category][property]
+                        else if (questionObject[category][property] == "false") delete questionObject[category][property]
+                    }
                 }
-                answer.disabled = true
-            }
-            let correctAnswers = game.trimNullAndFalse(game.apiData[i].correct_answers)
-            let isCorrectAnswer = game.correct(chosenAnswers, correctAnswers)
-            if (isCorrectAnswer) player.points++
-            game.displayCorrect(chosenAnswers, correctAnswers, i+1)
-        }
-        hideElements([submitBtn, nextBtn, previousBtn])
-        document.getElementById('question-counter').innerHTML = ""
-        document.getElementById('name-span').innerHTML = player.name
-        document.getElementById('points-span').innerHTML = player.points
-        unhideElements([end_div])
-    })
-
-    replayBtn.addEventListener('click', async function() {
-        await game.startReset()
-        unhideElements([quiz_div, submitBtn])
-        hideElements([end_div, previousBtn, nextBtn])
-    })
-
-    homeBtn.addEventListener('click', function(){
-        hideElements([quiz_div, end_div])
-        unhideElements([home_div])
-    })
-
-    document.getElementById('questions-main').addEventListener('click', function(e){
-        if (e.target.tagName == 'SPAN') {
-            let checkbox = e.target.nextSibling
-            if (!checkbox.disabled) {
-                if (!checkbox.checked) checkbox.checked = true
-                else checkbox.checked = false
             }
         }
-        if (e.target.classList == 'answer') {
-            let checkbox = e.target.querySelector('input')
-            if (!checkbox.disabled) {
-                if (!checkbox.checked) checkbox.checked = true
-                else checkbox.checked = false
-            }
-        }
-    })
+        return input
+    }
+}
 
-    function hideElements(arrayInput) {
-        for (let element of arrayInput) {
+//start game = kalla på api, ta antal questions
+
+
+class Interface {
+    constructor (data) {
+        this.currentQuestionIndex = 0;
+        //this.appendData(data)
+        this.buttons = {
+            start: document.getElementById('startBtn'),
+            previous: document.getElementById('previousBtn'),
+            next: document.getElementById('nextBtn'),
+            submit: document.getElementById('submitBtn'),
+            replay: document.getElementById('replayBtn'),
+            home: document.getElementById('homeBtn')
+        }
+        this.divs = {
+            container: document.getElementById('container'),
+            end: document.getElementById('end-div'),
+            quiz: document.getElementById('quiz-div'),
+            questions: document.getElementById('questions-main'),
+            home: document.getElementById('home-div')
+        }
+        this.eventListeners()
+    }
+    eventListeners() {
+        this.divs.container.addEventListener('click', function(e){
+            let clickedElement = e.target.id
+            console.log(clickedElement)
+
+            if (clickedElement == 'startBtn') {
+                //game.numOfQuestions = document.getElementById('questionAmountSelect').value;
+                //player.name = document.getElementById('nameInput').value
+                //player.points = 0;
+                await game.startReset()
+                updateNavDisplay()
+                unhideElements([this.divs.quiz, this.buttons.submit, this.buttons.next])
+                hideElements([this.buttons.previous, this.divs.home])
+            }
+        })
+    }
+    hideElements(HTML_collection) {
+        for (let element of HTML_collection) {
             element.classList.add('hidden')
         }
     }
-    function unhideElements(arrayInput) {
-        for (let element of arrayInput) {
+    unhideElements(HTML_collection) {
+        for (let element of HTML_collection) {
             element.classList.remove('hidden')
         }
     }
-    function currentQuestion_div() {
-        return document.getElementById('question'+(game.currentQuestionIndex+1))
+
+    appendData(data) {
+        this.divs.questions.innerHTML =""
+        // lägga till key inom square brackets (behövs ens square brackets?) -
+        // - och ändra de 2 "this.apiData[index]" till key?
+        Object.entries(data).forEach(([], index) => {
+            let outerDiv = document.createElement('div')
+            outerDiv.id = "question"+(index+1)
+            outerDiv.classList.add('hidden')
+            
+            let questionSpan = document.createElement('span')
+            questionSpan.innerHTML = data[index].question
+            questionSpan.classList.add('question')
+            
+            outerDiv.appendChild(questionSpan)
+            
+            let answers = data[index].answers
+            let answersDiv = document.createElement('div')
+            answersDiv.id = "answers-div"
+
+            for (let answer in answers) {
+                let answerDiv = document.createElement('div')
+                let answerSpan = document.createElement('span')
+                answerDiv.classList.add('answer')
+                answerDiv.id = answer
+                answerSpan.textContent = answers[answer]
+
+                let checkBox = document.createElement('input')
+                checkBox.type = 'checkbox'
+                checkBox.id = answer
+
+                answerDiv.appendChild(answerSpan)
+                answerDiv.appendChild(checkBox)
+                answersDiv.appendChild(answerDiv)
+            }
+            
+            outerDiv.appendChild(answersDiv)
+            mainQuestionsDiv.appendChild(outerDiv)
+        })
+        document.getElementById('question1').classList.remove('hidden')
     }
-    function updateNavDisplay() {
-        document.getElementById('question-counter').innerHTML = (game.currentQuestionIndex+1)+" of "+game.numOfQuestions
+}
+class Player {
+    constructor (name) {
+        this.name =  name;
+        this.points = 0;
     }
+}
+
+document.addEventListener('DOMContentLoaded', async function(e){
+
+    let game = new Game()
+    game.startReset()
+    /*
+    await game.apiData.api
+    console.log(game.apiData.api)
+    game.restart()
+    await game.apiData.api
+    console.log(game.apiData.api)
+    */  
 })
-
-
-/* //!Notes
-*Lämna in projektet som ett git-repo.
-kolla så alla variabler make sense.. t ex newDiv kan heta outerDiv
-*/
