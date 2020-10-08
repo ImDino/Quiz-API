@@ -41,6 +41,10 @@ body {
     height: 20px;
 }
 
+#home-main select {
+    height: 25px;
+}
+
 
 /*###################
 #       QUIZ        #
@@ -101,6 +105,28 @@ body {
 
 #question-counter {
     margin-top: 10px;
+}
+
+
+/*###################
+#     CHECKBOXES    #
+###################*/
+
+input[type=checkbox] {
+    width: 1.3em;
+    height: 1.3em;
+    background-color: inherit;
+    border: 2px solid black;
+    border-radius: 50%;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    outline: none;
+    content: '\2714';
+    cursor: pointer;
+}
+
+input[type=checkbox]:checked {
+    background-color: #12171E;
 }
 
 
@@ -179,28 +205,6 @@ button {
     border-radius: 15px;
     font-family: 'Carrois Gothic SC', sans-serif;
     font-size: 0.8em;
-}
-
-
-/*###################
-#     CHECKBOXES    #
-###################*/
-
-input[type=checkbox] {
-    width: 1.3em;
-    height: 1.3em;
-    background-color: inherit;
-    border: 2px solid black;
-    border-radius: 50%;
-    vertical-align: middle;
-    -webkit-appearance: none;
-    outline: none;
-    content: '\2714';
-    cursor: pointer;
-}
-
-input[type=checkbox]:checked {
-    background-color: #12171E;
 }
 
 
