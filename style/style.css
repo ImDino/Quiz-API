@@ -180,6 +180,7 @@ input[type=checkbox] {
     -webkit-appearance: none;
     outline: none;
     content: '\2714';
+    cursor: pointer;
 }
 
 input[type=checkbox]:checked {
