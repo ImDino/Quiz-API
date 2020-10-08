@@ -7,7 +7,7 @@ body {
     font-family: 'Carrois Gothic SC', sans-serif;
 }
 
-.container {
+#container {
     width: 550px;
     margin: none;
 }
