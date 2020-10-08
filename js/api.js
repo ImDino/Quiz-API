@@ -2,11 +2,13 @@ class API{
     constructor() {
         console.log("api.js")
         this.numOfQuestions = document.getElementById('questionAmountSelect').value
+        this.category = document.getElementById('categorySelect').value
+        this.difficulty = document.getElementById('difficultySelect').value
         this.apiData = this.fetch()
     }
     async fetch() {
-        console.log(this.numOfQuestions) //lägg in droplist för category och difficulty
-        let url = 'https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8&category=code&difficulty=Hard&limit='+this.numOfQuestions
+        console.log(this.numOfQuestions)
+        let url = 'https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8'+this.category+this.difficulty+'&limit='+this.numOfQuestions
         try {
             let data = await fetch(url)
             .then(resp => resp.json())

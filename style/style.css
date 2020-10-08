@@ -12,6 +12,10 @@ body {
     margin: none;
 }
 
+/*###################
+#       HOME        #
+###################*/
+
 #home-div {
     display: flex;
     flex-flow: column;
@@ -36,6 +40,11 @@ body {
 #home-main input {
     height: 20px;
 }
+
+
+/*###################
+#       QUIZ        #
+###################*/
 
 #questions-main {
     margin-top: 20px;
@@ -90,6 +99,15 @@ body {
     display: flex;
 }
 
+#question-counter {
+    margin-top: 10px;
+}
+
+
+/*###################
+#     GAME OVER     #
+###################*/
+
 #end-div {
     display: flex;
     justify-content: center;
@@ -105,9 +123,6 @@ body {
     text-align: center;
 }
 
-#question-counter {
-    margin-top: 10px;
-}
 
 /*###################
 #      BUTTONS      #
@@ -135,12 +150,13 @@ body {
 
 #previousBtn {
     left: -26px;
+    filter: drop-shadow(0 2px 1px rgb(54, 255, 238))
 }
 
 #nextBtn {
-    /* float: right; */
     left: 20px;
     transform: rotate(180deg);
+    filter: drop-shadow(0 -2px 1px rgb(54, 255, 238))
 }
 
 #buttons {
@@ -163,8 +179,8 @@ button {
     border-radius: 15px;
     font-family: 'Carrois Gothic SC', sans-serif;
     font-size: 0.8em;
-    /* font-weight: bold; */
 }
+
 
 /*###################
 #     CHECKBOXES    #

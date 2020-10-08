@@ -15,7 +15,7 @@ class Game {
     correct(userAnswer, correctAnswers) {
         let correctAnswersArray = Object.keys(correctAnswers).map(function (item) {
             return item.replace("_correct", "");
-        }); //fixa denna sen gör så det står på startsidan vad det är quiz till, web dev?
+        });
 
         if (userAnswer.toString() == correctAnswersArray.toString()) {
             return true
