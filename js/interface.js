@@ -22,16 +22,14 @@ class Interface {
     eventListeners(parent) {
         let self = this
         this.divs.container.addEventListener('click', async function(e){
-            let clickedElementID = e.target.id
-
-            if (clickedElementID == 'startBtn') {
+            if (e.target == self.buttons.start) {
                 await parent.startReset(parent)
                 self.updateNavDisplay(parent)
                 self.unhideElements([self.divs.quiz, self.buttons.submit, self.buttons.next])
                 self.hideElements([self.buttons.previous, self.divs.home])
             }
 
-            if (clickedElementID == 'previousBtn') {
+            if (e.target == self.buttons.previous) {
                 self.unhideElements([self.buttons.next])
         
                 self.hideElements([self.currentQuestion_div(parent)])
@@ -44,7 +42,7 @@ class Interface {
                 self.updateNavDisplay(parent)
             }
         
-            if (clickedElementID == 'nextBtn') {
+            if (e.target == self.buttons.next) {
                 self.unhideElements([self.buttons.previous])
                 
                 self.hideElements([self.currentQuestion_div(parent)])
@@ -57,7 +55,7 @@ class Interface {
                 self.updateNavDisplay(parent)
             }
 
-            if (clickedElementID == 'submitBtn') {
+            if (e.target == self.buttons.submit) {
                 for (let i=0 ; i<parent.api.numOfQuestions ; i++) {
                     let chosenAnswers = []
                     let checkBoxes = document.getElementById('question'+(i+1)).getElementsByTagName('input')
@@ -79,19 +77,19 @@ class Interface {
                 self.unhideElements([self.divs.end])
             }
 
-            if (clickedElementID == 'replayBtn') {
+            if (e.target == self.buttons.replay) {
                 await parent.startReset(parent)
                 self.updateNavDisplay(parent)
                 self.unhideElements([self.divs.quiz, self.buttons.submit, self.buttons.next])
                 self.hideElements([self.divs.end, self.buttons.previous])
             }
 
-            if (clickedElementID == 'homeBtn') {
+            if (e.target == self.buttons.home) {
                 self.hideElements([self.divs.quiz, self.divs.end])
                 self.unhideElements([self.divs.home])
             }
 
-            if (clickedElementID == 'answer-span') {
+            if (e.target.id == 'answer-span') {
                 let checkbox = e.target.nextSibling
                 if (!checkbox.disabled) {
                     if (!checkbox.checked) checkbox.checked = true

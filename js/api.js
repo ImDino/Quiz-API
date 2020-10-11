@@ -15,7 +15,8 @@ class API{
             .then(data => this.apiData = this.trimData(data))
         }
         catch (error) {
-            console.log("något gick snett")
+            console.log("something went wrong")
+            document.getElementById("errorMessage").innerHTML = "An error has occured, please reload the page."
         }
     }
     trimData(input) {
