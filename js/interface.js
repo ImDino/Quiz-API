@@ -132,7 +132,7 @@ class Interface {
             outerDiv.classList.add('hidden')
 
             let questionSpan = document.createElement('span')
-            questionSpan.innerHTML = data[index].question
+            questionSpan.textContent = data[index].question
             questionSpan.classList.add('question')
             
             outerDiv.appendChild(questionSpan)
