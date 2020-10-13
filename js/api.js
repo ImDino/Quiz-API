@@ -1,13 +1,11 @@
 class API{
     constructor() {
-        console.log("api.js")
         this.numOfQuestions = document.getElementById('questionAmountSelect').value
         this.category = document.getElementById('categorySelect').value
         this.difficulty = document.getElementById('difficultySelect').value
         this.apiData = this.fetch()
     }
     async fetch() {
-        console.log(this.numOfQuestions)
         let url = 'https://quizapi.io/api/v1/questions?apiKey=boMjjXjH4RV3ayJ4aCMerDAKWBuBMCskuSTqN7N8'+this.category+this.difficulty+'&limit='+this.numOfQuestions
         try {
             let data = await fetch(url)
