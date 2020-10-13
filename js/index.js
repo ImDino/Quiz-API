@@ -1,3 +1,3 @@
-document.addEventListener('DOMContentLoaded', async function(e){
-    let game = new Game()
-})
+document.addEventListener('DOMContentLoaded', () => {
+        let game = new Game()
+    })

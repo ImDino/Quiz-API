@@ -20,91 +20,95 @@ class Interface {
         this.eventListeners(this.parent)
     }
     eventListeners(parent) {
-        let self = this
-        this.divs.container.addEventListener('click', async function(e){
-            if (e.target == self.buttons.start) {
-                await parent.startReset(parent)
-                self.updateNavDisplay(parent)
-                self.unhideElements([self.divs.quiz, self.buttons.submit, self.buttons.next])
-                self.hideElements([self.buttons.previous, self.divs.home])
-            }
-
-            if (e.target == self.buttons.previous) {
-                self.unhideElements([self.buttons.next])
-        
-                self.hideElements([self.currentQuestion_div(parent)])
-                parent.interface.currentQuestionIndex--;
-                self.unhideElements([self.currentQuestion_div(parent)])
-        
-                if(parent.interface.currentQuestionIndex == 0) {
-                    self.hideElements([self.buttons.previous])
+        this.divs.container.addEventListener('click', async (e) => {
+                if (e.target == this.buttons.start) {
+                    await parent.startReset(parent);
+                    this.updateNavDisplay(parent);
+                    this.unhideElements([this.divs.quiz, this.buttons.submit, this.buttons.next]);
+                    this.hideElements([this.buttons.previous, this.divs.home]);
                 }
-                self.updateNavDisplay(parent)
-            }
-        
-            if (e.target == self.buttons.next) {
-                self.unhideElements([self.buttons.previous])
-                
-                self.hideElements([self.currentQuestion_div(parent)])
-                parent.interface.currentQuestionIndex++;
-                self.unhideElements([self.currentQuestion_div(parent)])
 
-                if(parent.interface.currentQuestionIndex == parent.api.numOfQuestions-1) {
-                    self.hideElements([self.buttons.next])
-                }
-                self.updateNavDisplay(parent)
-            }
+                if (e.target == this.buttons.previous) {
+                    this.unhideElements([this.buttons.next]);
 
-            if (e.target == self.buttons.submit) {
-                for (let i=0 ; i<parent.api.numOfQuestions ; i++) {
-                    let chosenAnswers = []
-                    let checkBoxes = document.getElementById('question'+(i+1)).getElementsByTagName('input')
-                    for (let answer of checkBoxes) {
-                        if (answer.checked) {
-                            chosenAnswers.push(answer.id)
-                        }
-                        answer.disabled = true
+                    this.hideElements([this.currentQuestion_div(parent)]);
+                    parent.interface.currentQuestionIndex--;
+                    this.unhideElements([this.currentQuestion_div(parent)]);
+
+                    if (parent.interface.currentQuestionIndex == 0) {
+                        this.hideElements([this.buttons.previous]);
                     }
-                    let correctAnswers = parent.api.apiData[i].correct_answers
-                    let isCorrectAnswer = parent.correct(chosenAnswers, correctAnswers)
-                    if (isCorrectAnswer) parent.player.points++
-                    self.displayCorrect(chosenAnswers, correctAnswers, i+1)
+                    this.updateNavDisplay(parent);
                 }
-                self.hideElements([self.buttons.submit, self.buttons.next, self.buttons.previous])
-                document.getElementById('question-counter').innerHTML = ""
-                document.getElementById('name-span').innerHTML = parent.player.name
-                document.getElementById('points-span').innerHTML = parent.player.points
-                self.unhideElements([self.divs.end])
-            }
 
-            if (e.target == self.buttons.replay) {
-                await parent.startReset(parent)
-                self.updateNavDisplay(parent)
-                self.unhideElements([self.divs.quiz, self.buttons.submit, self.buttons.next])
-                self.hideElements([self.divs.end, self.buttons.previous])
-            }
+                if (e.target == this.buttons.next) {
+                    this.unhideElements([this.buttons.previous]);
 
-            if (e.target == self.buttons.home) {
-                self.hideElements([self.divs.quiz, self.divs.end])
-                self.unhideElements([self.divs.home])
-            }
+                    this.hideElements([this.currentQuestion_div(parent)]);
+                    parent.interface.currentQuestionIndex++;
+                    this.unhideElements([this.currentQuestion_div(parent)]);
 
-            if (e.target.id == 'answer-span') {
-                let checkbox = e.target.nextSibling
-                if (!checkbox.disabled) {
-                    if (!checkbox.checked) checkbox.checked = true
-                    else checkbox.checked = false
+                    if (parent.interface.currentQuestionIndex == parent.api.numOfQuestions - 1) {
+                        this.hideElements([this.buttons.next]);
+                    }
+                    this.updateNavDisplay(parent);
                 }
-            }
 
-            if (e.target.classList == 'answer') {
-                let checkbox = e.target.querySelector('input')
-                if (!checkbox.disabled) {
-                    if (!checkbox.checked) checkbox.checked = true
-                    else checkbox.checked = false
+                if (e.target == this.buttons.submit) {
+                    for (let i = 0; i < parent.api.numOfQuestions; i++) {
+                        let chosenAnswers = [];
+                        let checkBoxes = document.getElementById('question' + (i + 1)).getElementsByTagName('input');
+                        for (let answer of checkBoxes) {
+                            if (answer.checked) {
+                                chosenAnswers.push(answer.id);
+                            }
+                            answer.disabled = true;
+                        }
+                        let correctAnswers = parent.api.apiData[i].correct_answers;
+                        let isCorrectAnswer = parent.correct(chosenAnswers, correctAnswers);
+                        if (isCorrectAnswer)
+                            parent.player.points++;
+                        this.displayCorrect(chosenAnswers, correctAnswers, i + 1);
+                    }
+                    this.hideElements([this.buttons.submit, this.buttons.next, this.buttons.previous]);
+                    document.getElementById('question-counter').innerHTML = "";
+                    document.getElementById('name-span').innerHTML = parent.player.name;
+                    document.getElementById('points-span').innerHTML = parent.player.points;
+                    this.unhideElements([this.divs.end]);
                 }
-            }
-        })
+
+                if (e.target == this.buttons.replay) {
+                    await parent.startReset(parent);
+                    this.updateNavDisplay(parent);
+                    this.unhideElements([this.divs.quiz, this.buttons.submit, this.buttons.next]);
+                    this.hideElements([this.divs.end, this.buttons.previous]);
+                }
+
+                if (e.target == this.buttons.home) {
+                    this.hideElements([this.divs.quiz, this.divs.end]);
+                    this.unhideElements([this.divs.home]);
+                }
+
+                if (e.target.id == 'answer-span') {
+                    let checkbox = e.target.nextSibling;
+                    if (!checkbox.disabled) {
+                        if (!checkbox.checked)
+                            checkbox.checked = true;
+                        else
+                            checkbox.checked = false;
+                    }
+                }
+
+                if (e.target.classList == 'answer') {
+                    let checkbox = e.target.querySelector('input');
+                    if (!checkbox.disabled) {
+                        if (!checkbox.checked)
+                            checkbox.checked = true;
+                        else
+                            checkbox.checked = false;
+                    }
+                }
+            })
     }
     currentQuestion_div(parent) {
         return document.getElementById('question'+(parent.interface.currentQuestionIndex+1))
