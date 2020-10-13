@@ -1,6 +1,6 @@
 class Player {
-    constructor (name) {
-        this.name =  name;
+    constructor () {
+        this.name = "";
         this.points = 0;
     }
 }

@@ -4,50 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/index.js"></script>
-    <script src="js/Player.js"></script>
-    <script src="js/Game.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/interface.js"></script>
     <link rel="stylesheet" href="style/style.css">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Carrois+Gothic+SC&display=swap" rel="stylesheet">
+    <title>Dino's Quiz</title>
 </head>
 <body>
-    <div class="container">
+    <div id="container">
         <div id="home-div">
             <header>Quiz</header>
-            <span>Name:</span>
-            <input type="text" placeholder="Insert your name" id="nameInput">
-            <span>amount of questions:</span>
-            <select id="questionAmountSelect">
-                <option value=5>5</option>
-                <option value=6>6</option>
-                <option value=7>7</option>
-                <option value=8>8</option>8</option>
-                <option value=9>9</option>
-                <option value=10>10</option>
-            </select>
+            <div id="home-container">
+                <div id="home-main">
+                    <div>
+                        <span>Name:</span>
+                        <input type="text" placeholder="Enter your name" id="nameInput">
+                    </div>
+                    <div>
+                        <span>amount of questions:</span>
+                        <select id="questionAmountSelect">
+                            <option value=5>5</option>
+                            <option value=6>6</option>
+                            <option value=7>7</option>
+                            <option value=8>8</option>
+                            <option value=9>9</option>
+                            <option value=10>10</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>Category:</span>
+                        <select id="categorySelect">
+                            <option value=''>Any Category</option>
+                            <option value='&category=linux'>Linux</option>
+                            <option value='&category=bash'>Bash</option>
+                            <option value='&category=Uncategorized'>uncategorized</option>
+                            <option value='&category=docker'>Docker</option>
+                            <option value='&category=sql'>SQL</option>
+                            <option value='&category=cms'>CMS</option>
+                            <option value='&category=code'>Code</option>
+                            <option value='&category=devops'>DevOps</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span>Difficulty:</span>
+                        <select id="difficultySelect">
+                            <option value=''>Any Difficulty</option>
+                            <option value='&difficulty=Easy'>Easy</option>
+                            <option value='&difficulty=Medium'>Medium</option>
+                            <option value='&difficulty=Hard'>Hard</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <button id="startBtn">Start game!</button>
         </div>
         <div id="end-div" class="hidden">
             <div id="result-div">
+                <span>Game over, </span>
                 <span id="name-span"></span>
-                <span>Game over, you scored: </span>
+                <span>. You scored: </span>
                 <span id="points-span"></span>
             </div>
             <button id="replayBtn">Play again!</button>
             <button id="homeBtn">Home page</button>
         </div>
+        
         <div id="quiz-div" class="hidden">
-            <div id="question-counter"></div>
-            <div id="questions-main">
-                <!-- apiQuestions Here -->
+            <div class="arrow-space">
+                <img src="img/left-arrow.png" id="previousBtn">
             </div>
-            <div id="buttons">
-                <div id="main-buttons">
-                    <button id="previousBtn" class="hidden">Previous Question</button>
-                    <!-- <button id="correctBtn">Correct</button> -->
-                    <button id="nextBtn">Next Question</button>
+            <div>
+                <div id="question-counter"></div>
+                <div id="questions-main">
+                    <!-- apiQuestions Here -->
                 </div>
-                <button id="submitBtn" class="hidden">Submit Answers</button>
             </div>
+            <div class="arrow-space">
+                <img src="img/left-arrow.png" id="nextBtn">
+            </div>
+        </div>
+        <div id="buttons">
+            <button id="submitBtn" class="hidden">Submit Answers</button>
         </div>
         <span id="errorMessage"></span>
     </div>
